@@ -1,0 +1,3 @@
+X:/coding/school work/checkout/cmake-build-debug/CMakeFiles/checkout.dir
+X:/coding/school work/checkout/cmake-build-debug/CMakeFiles/edit_cache.dir
+X:/coding/school work/checkout/cmake-build-debug/CMakeFiles/rebuild_cache.dir
