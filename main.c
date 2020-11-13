@@ -6,7 +6,7 @@
 
 //GLOBAL DATA
 
-int map[1][2] = {123, 0}; //map of booking IDs to indices
+int map[10][2] = {{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}}; //map of booking IDs to indices .. -- matthew: i had to pre-fill due to return index find matches from old memory. -1 should never be used in code as this stands for error
 int tables[2][3] = {};    //boolean list of tables
 int partyIndex = -1;       //tells checkIn what index to insert at
 
@@ -14,7 +14,7 @@ int partyIndex = -1;       //tells checkIn what index to insert at
 //PARTY DATA - maximum 24 parties
 char surname[24][127] = {};
 int dateOfBirth[24][3] = {};
-int guests[24][2] = {2, 2};
+int guests[24][2]; //please don't put test values and then give the code and not remove them // array hold guest numbers
 char boardType[24][2] = {};
 int length[24] = {};
 int dailyWakeUpCall[24] = {};
@@ -87,23 +87,27 @@ void BookTable() {
     char bookingId[256] = {"test"};
     do{
     //matthew's fixes
-    strcpy(bookingId, input_char("Enter your booking ID"));
-    printf("%d",strlen(bookingId));
+    strcpy(bookingId, input_char("Enter your booking ID?"));
     if (digits_only(bookingId) == 1)
         {
-            printf("\nerror your bookingID isn't valid\n");
+            printf("\nyour bookingID is valid\n");
             run = 1;
         }
     else
         {
-            printf("\nyour bookingID is valid\n");
+            printf("\nerror your bookingID isn't valid\n");
             run = 0;
         }
     }while (run == 0);
-    int numbers = sscanf("%d",
-                         bookingId + strlen(bookingId) - 4); //use pointer arithmetic to get the last three letters
+    // how do i put this this solution did not work at all probably because clion handles this type clever stuff different.
+    //old solution:
+    //int numbers = sscanf("%d",
+      //                   bookingId + strlen(bookingId) - 4); //use pointer arithmetic to get the last three letters
     // of the string, use sscanf to convert last three digits to integer
-
+    //new solution this saved me so many headaches
+    char *p = bookingId;
+    while (isalpha(*p)) ++p;
+    int numbers = atoi(p);
     int index = returnIndex(numbers); //fetch the index for this booking ID
 
     if (index == -1) {
@@ -159,8 +163,8 @@ void BookTable() {
                     flag = 1;
                 }
                 break;
-
-            case 'N':
+            //fixed the lowercase case input thing you only had one working - matthew
+            case 'n':
                 if (tables[timeIn][1] == 1) {
                     printf("This table is already booked\n");
                 } else {
@@ -169,7 +173,8 @@ void BookTable() {
                 }
                 break;
 
-            case 'T':
+                //fixed the lowercase case input thing you only had one working - matthew
+            case 't':
                 if (tables[timeIn][2] == 1) {
                     printf("This table is already booked\n");
                 } else {
@@ -480,9 +485,9 @@ int Checkout(int bookingID) {
 }
 
 
-
 int main() {
     //gets tests
+    char reference[8];
     char idChecked[26] = {"test"};
     int run = 1;
     while (run == 1){
@@ -498,10 +503,23 @@ int main() {
                 break;
             case 3:
                 //checks if contains numbers
-                strcmp(idChecked,input_char("\nwhat is your bookingID?"));
+                strcpy(idChecked,input_char("\nwhat is your bookingID?"));
                 if (digits_only(idChecked) == 1) {
-                    //if yes then passes into sub routine.
-                    Checkout(idChecked);
+                    //all hall stackoverflow for this fix. It took some time
+                    //gets numbers from string
+                    char *p = idChecked;
+                    while (isalpha(*p)) ++p;
+                    int numbers = atoi(p);
+                    int check = returnIndex(numbers);
+                    if (returnIndex(numbers) != -1) { //fetch the index for this booking ID
+                        //if yes then passes into sub routine.
+                        Checkout(numbers);
+                    }
+
+                    else{
+                        //if no then returns a error
+                        printf("\nerror invalid bookingID\n");
+                    }
                 }
                 else
                 {
