@@ -452,7 +452,7 @@ int Checkout(int bookingID) {
         }
     }
     int current_time[3] = {14, 11, 2020};
-    if (AgeDifference(dateOfBirth[index], current_time) > 65) {  
+    if (AgeDifference(dateOfBirth[index], current_time) > 65) {
         lengthCost = lengthCost * 0.9;
     }
 
