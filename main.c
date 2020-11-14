@@ -93,18 +93,9 @@ void BookTable() {
     char names[3][32] = {"Endor", "Naboo", "Tatooine"};
 
     int run = 0;
-    char bookingId[256] = {"test"};
-    do {
-        //matthew's fixes
-        strcpy(bookingId, input_char("Enter your booking ID?"));
-        if (digits_only(bookingId) == 1) {
-            printf("\nyour bookingID is valid\n");
-            run = 1;
-        } else {
-            printf("\nerror your bookingID isn't valid\n");
-            run = 0;
-        }
-    } while (run == 0);
+    char bookingId[256] = {};
+    strcpy(bookingId, input_char("Enter your booking ID?"));
+
     // how do i put this this solution did not work at all probably because clion handles this type clever stuff different.
     //old solution:
     //int numbers = sscanf("%d",
