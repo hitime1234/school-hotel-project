@@ -308,7 +308,12 @@ void checkin() {
         numberOfRooms = input_int("\n");
 
     } while (numberOfRooms >= 61 || numberOfRooms < 1);
-
+    do {
+        time = input_int("how many days are you here for?");
+        if (time > 30 || time < 1){
+            printf("\ntoo large or small time 1-30\n");
+        }
+    }while(time > 30 || time < 1 );
     printf("\n");
     int hold_int = numberOfRooms;
     for (int i = 0; i < hold_int; i++) {
@@ -332,10 +337,9 @@ void checkin() {
             //gets inputs for number of people and length of stay.
             numbers = input_int("how many adults are with you?");
             numbers_child = input_int("how many children are with you?");
-            time = input_int("how many days are you here for?");
         } while (time > 30 || time < 1 || numbers_child > 5 || numbers > 5 || numbers_child < 0 || numbers < 1);
 
-        length[whatRoom - 1] = time;
+        length[partyIndex] = time;
         guests[partyIndex][0] = guests[partyIndex][0] + numbers;
         guests[partyIndex][1] = guests[partyIndex][1] + numbers_child;
         roomsUsed[partyIndex][i] = whatRoom;
@@ -357,7 +361,7 @@ void checkin() {
 
     do{ //validation loop for taking in board type
         printf("\n\n");
-        strcpy(boardType[partyIndex], input_char("Enter your board type, FB, HB or BB"));
+        strcpy(boardType[partyIndex], input_char("Enter your board type, FB, HB or BB?\n"));
     }
     while( !( (boardType[partyIndex][0] == 'F' || boardType[partyIndex][0] == 'H' || boardType[partyIndex][0] == 'B') && boardType[partyIndex][1] == 'B') ); //not at all overcomplicated way to make sure it is FB, HB or BB
 
@@ -422,7 +426,7 @@ int Checkout(int bookingID) {
     float rooms[6];
 
     int index = returnIndex(bookingID);
-  
+
     int roomPrices[6][2] = {
             {1, 100},
             {2, 100},
@@ -441,6 +445,10 @@ int Checkout(int bookingID) {
 
             // When the values are equal it will multiply the cost by the amount of days stayed to get the room price
             if (roomsUsed[index][i] == roomPrices[j][0]) {
+                printf("\n%d\n",length[index]);
+                printf("\n%d\n",roomPrices[j][1]);
+                printf("\n%d\n",lengthCost);
+
                 lengthCost = lengthCost + (roomPrices[j][1] * length[index]);
             }
         }
@@ -505,6 +513,7 @@ int main() {
     int run = 1;
     while (run == 1) {
         //gets input and start switch case
+        printf("\n");
         switch (input_int("\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n?")) {
             case 1:
                 //starts the checkin subroutine
