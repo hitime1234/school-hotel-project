@@ -413,13 +413,7 @@ int Checkout(int bookingID) {
     float rooms[6];
 
     int index = returnIndex(bookingID);
-
-    for (int i = 0; i < 6; i++) {
-        if (roomsUsed[index][i] == 1) {
-            rooms[i] = i + 1;
-        }
-    }
-
+  
     int roomPrices[6][2] = {
             {1, 100},
             {2, 100},
@@ -437,7 +431,7 @@ int Checkout(int bookingID) {
         for (int j = 0; j < 6; j++) {
 
             // When the values are equal it will multiply the cost by the amount of days stayed to get the room price
-            if (rooms[i] == roomPrices[j][0]) {
+            if (roomsUsed[index][i] == roomPrices[j][0]) {
                 lengthCost = lengthCost + (roomPrices[j][1] * length[index]);
             }
         }
@@ -490,7 +484,7 @@ int Checkout(int bookingID) {
     printf("\n\nOverall cost for the stay is: GBP%.2f", overallCost);
 
     for (int i = 0; i < 6; i++) {
-        rooms[i] = 0;
+        roomsUsed[index][i] = 0;
     }
 }
 
