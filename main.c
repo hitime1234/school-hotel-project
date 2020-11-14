@@ -536,6 +536,8 @@ int main() {
                 //this stops the program
                 run = 0;
                 break;
+            case 5:
+                printf("\nmade by following\nprogrammers:\ncharles\nphilip\nmatthew\nRandom bug tester:\njackus: 'there is always bugs!' like this one\n");
             default:
                 //input wasn't any of the cases
                 printf("\nINPUT error.\n");
