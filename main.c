@@ -344,48 +344,46 @@ int AgeDifference(const int date1[3], const int date2[3]){
 
     if(day2 < day1)
     {
-        // borrow days from february
+         //borrow days from february
         if (mon2 == 3)
         {
-            //  check whether year is a leap year
+              //check whether year is a leap year
             if ((year2 % 4 == 0 && year2 % 100 != 0) || (year2 % 400 == 0))
             {
-                day2 += 29;
+              day2 += 29;
             }
 
             else
             {
-                day2 += 28;
+               day2 += 28;
             }
         }
 
-            // borrow days from April or June or September or November
+             //borrow days from April or June or September or November
         else if (mon2 == 5 || mon2 == 7 || mon2 == 10 || mon2 == 12)
         {
             day2 += 30;
         }
 
-            // borrow days from Jan or Mar or May or July or Aug or Oct or Dec
-        else
+             //borrow days from Jan or Mar or May or July or Aug or Oct or Dec
+            else
         {
             day2 += 31;
         }
 
-        mon2 = mon2 - 1;
+         mon2 = mon2 - 1;
     }
 
     if (mon2 < mon1)
     {
-        mon2 += 12;
-        year2 -= 1;
+       mon2 += 12;
+     year2 -= 1;
     }
 
     day_diff = day2 - day1;
     mon_diff = mon2 - mon1;
-    year_diff = year2 - year1;
-
-    printf("Difference: %d years %02d months and %02d days.", year_diff, mon_diff, day_diff);
-
+    year_diff =  year2 - year1;
+    printf("you are %d years old", year_diff);
     return year_diff;
 }
 
@@ -432,8 +430,8 @@ int Checkout(int bookingID) {
             }
         }
     }
-
-    if (AgeDifference(dateOfBirth[index], &(int){5,11,2020})  > 65) {  //TODO sort out age
+    int current_time[3] = {14,11,2020};
+    if (AgeDifference(dateOfBirth[index],current_time)> 65) {  //TODO sort out age
         lengthCost = lengthCost * 0.9;
     }
 
