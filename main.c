@@ -298,7 +298,7 @@ void checkin() {
         //checks for if the number lies between 1 & 6
         int whatRoom = input_int(
                 "what room would you like prices are:\nRoom 1 & 2 = 100,\nRoom 3 = 85,\nRoom 4 & 5 = 75,\nRoom 6 = 50,\n?");
-        if (whatRoom >= 6 || whatRoom < 1) {
+        if (whatRoom > 6 || whatRoom < 1) {
             printf("error\n");
             i--;
         }
