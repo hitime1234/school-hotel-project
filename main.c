@@ -445,10 +445,6 @@ int Checkout(int bookingID) {
 
             // When the values are equal it will multiply the cost by the amount of days stayed to get the room price
             if (roomsUsed[index][i] == roomPrices[j][0]) {
-                printf("\n%d\n",length[index]);
-                printf("\n%d\n",roomPrices[j][1]);
-                printf("\n%d\n",lengthCost);
-
                 lengthCost = lengthCost + (roomPrices[j][1] * length[index]);
             }
         }
