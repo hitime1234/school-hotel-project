@@ -437,7 +437,7 @@ int Checkout(int bookingID) {
     float rooms[6];
 
     int index = returnIndex(bookingID);
-    printf("DEBUG: index: %d", index);
+    
 
     int roomPrices[6][2] = {
             {1, 100},
@@ -541,7 +541,7 @@ int main() {
                     while (isalpha(*p)) ++p;
                     int numbers = atoi(p);
 
-                    printf("DEBUG: numbers: %d", numbers);
+                   
 
                     int check = returnIndex(numbers);
                     if (returnIndex(numbers) != -1) { //fetch the index for this booking ID
