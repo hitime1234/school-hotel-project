@@ -40,7 +40,7 @@ int digits_only(const char *s) {
 }
 
 
-int returnIndex(reference) { //returns index from the map
+int returnIndex(int reference) { //returns index from the map
     for (int i = 0; i < 18; i++) {
         if (map[i][0] == reference) {
             return map[i][1];
@@ -462,7 +462,7 @@ int Checkout(int bookingID) {
             }
         }
     }
-    int current_time[3] = {14, 11, 2020};
+    int current_time[3] = {15, 11, 2020};
     if (AgeDifference(dateOfBirth[index], current_time) > 65) {
         lengthCost = lengthCost * 0.9;
     }
