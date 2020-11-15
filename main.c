@@ -59,11 +59,11 @@ int input_int(char *text) {
     int num = 0;
     while (run == 1) {
         printf("%s", text);
-        int hold = scanf("%5d", &num);
-        if (hold != 1) {
+        int scanfError = scanf("%5d", &num);
+        if (scanfError != 1) {
             fflush(stdin);
             fflush(stdout);
-            printf("error input\n");
+            printf("Input error. Please enter an integer.\n");
             num = 0;
         } else {
             fflush(stdin);
@@ -104,7 +104,13 @@ void BookTable() {
     //new solution this saved me so many headaches
     char *p = bookingId;
     while (isalpha(*p)) ++p;
-    int numbers = atoi(p);
+    int numbers = strtol(p, NULL, 10); //change to strtol to correctly report conversion errors.
+
+    if(numbers == 0){
+        printf("Invalid booking ID - must be in format surnameXXX\n");
+        return;
+    }
+
     int index = returnIndex(numbers); //fetch the index for this booking ID
 
     if (index == -1) {
@@ -194,7 +200,7 @@ int boolCheck(char *string) {
         char *getsp;
         char answer;
         getsp = input_char(string);
-        answer = getsp[0];
+        answer = toupper(getsp[0]);
         if (answer == 'Y' || answer == 'N') {
             if (answer == 'Y') {
                 return 1;
@@ -202,7 +208,8 @@ int boolCheck(char *string) {
                 return 0;
             }
         } else {
-            printf("not valid\n");
+            printf("Not valid. Please enter y/n.\n");
+            return -1;
         }
     }
 
@@ -298,13 +305,16 @@ void checkin() {
         printf("\nHow many rooms would you like to book? 1-6.");
         numberOfRooms = input_int("\n");
 
-    } while (numberOfRooms >= 61 || numberOfRooms < 1);
+    } while (numberOfRooms > 6 || numberOfRooms < 1);
     do {
         time = input_int("how many days are you here for?");
         if (time > 30 || time < 1){
             printf("\ntoo large or small time 1-30\n");
         }
     }while(time > 30 || time < 1 );
+
+
+
     printf("\n");
     int hold_int = numberOfRooms;
     for (int i = 0; i < hold_int; i++) {
@@ -335,8 +345,19 @@ void checkin() {
         guests[partyIndex][1] = guests[partyIndex][1] + numbers_child;
         roomsUsed[partyIndex][i] = whatRoom;
         printf("\n");
-        dailyWakeUpCall[partyIndex] = boolCheck("do you want a daily wake up call?");
+
+        int wakeUpHolder = 0;
+
+        do { //validation loop for wake up call input
+            wakeUpHolder = boolCheck("do you want a daily wake up call?");
+        }
+        while (wakeUpHolder == -1);
+
+        dailyWakeUpCall[partyIndex] = wakeUpHolder;
     }
+
+    printf("Debug: daily wakeup call: %d", dailyWakeUpCall[partyIndex]);
+
     int dateCheck = 0;
     do {
         printf("\n\n");
@@ -417,6 +438,7 @@ int Checkout(int bookingID) {
     float rooms[6];
 
     int index = returnIndex(bookingID);
+    printf("DEBUG: index: %d", index);
 
     int roomPrices[6][2] = {
             {1, 100},
@@ -445,19 +467,19 @@ int Checkout(int bookingID) {
         lengthCost = lengthCost * 0.9;
     }
 
-    if (strcmp((const char *) boardType, "FB") == 0) {
+    if (strcmp((const char *) boardType[index], "FB") == 0) {
         adultBoardRate = guests[index][0] * 20;
         adultBoardCost = adultBoardRate * length[index];
         childBoardRate = guests[index][1] * 20;
         childBoardCost = childBoardRate * length[index] * 0.5;
         totalBoardCost = adultBoardCost + childBoardCost;
-    } else if (strcmp((const char *) boardType, "HB") == 0) {
+    } else if (strcmp((const char *) boardType[index], "HB") == 0) {
         adultBoardRate = guests[index][0] * 15;
         adultBoardCost = adultBoardRate * length[index];
         childBoardRate = guests[index][1] * 15;
         childBoardCost = childBoardRate * length[index] * 0.5;
         totalBoardCost = adultBoardCost + childBoardCost;
-    } else if (strcmp((const char *) boardType, "FB") == 0) {
+    } else if (strcmp((const char *) boardType[index], "BB") == 0) {
         adultBoardRate = guests[index][0] * 5;
         adultBoardCost = adultBoardRate * length[index];
         childBoardRate = guests[index][1] * 5;
@@ -519,6 +541,9 @@ int main() {
                     char *p = idChecked;
                     while (isalpha(*p)) ++p;
                     int numbers = atoi(p);
+
+                    printf("DEBUG: numbers: %d", numbers);
+
                     int check = returnIndex(numbers);
                     if (returnIndex(numbers) != -1) { //fetch the index for this booking ID
                         //if yes then passes into sub routine.
