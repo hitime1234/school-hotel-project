@@ -356,7 +356,6 @@ void checkin() {
         dailyWakeUpCall[partyIndex] = wakeUpHolder;
     }
 
-    printf("Debug: daily wakeup call: %d", dailyWakeUpCall[partyIndex]);
 
     int dateCheck = 0;
     do {
