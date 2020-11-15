@@ -438,6 +438,7 @@ int Checkout(int bookingID) {
     float rooms[6];
 
     int index = returnIndex(bookingID);
+    printf("DEBUG: index: %d", index);
 
     int roomPrices[6][2] = {
             {1, 100},
@@ -466,19 +467,19 @@ int Checkout(int bookingID) {
         lengthCost = lengthCost * 0.9;
     }
 
-    if (strcmp((const char *) boardType, "FB") == 0) {
+    if (strcmp((const char *) boardType[index], "FB") == 0) {
         adultBoardRate = guests[index][0] * 20;
         adultBoardCost = adultBoardRate * length[index];
         childBoardRate = guests[index][1] * 20;
         childBoardCost = childBoardRate * length[index] * 0.5;
         totalBoardCost = adultBoardCost + childBoardCost;
-    } else if (strcmp((const char *) boardType, "HB") == 0) {
+    } else if (strcmp((const char *) boardType[index], "HB") == 0) {
         adultBoardRate = guests[index][0] * 15;
         adultBoardCost = adultBoardRate * length[index];
         childBoardRate = guests[index][1] * 15;
         childBoardCost = childBoardRate * length[index] * 0.5;
         totalBoardCost = adultBoardCost + childBoardCost;
-    } else if (strcmp((const char *) boardType, "BB") == 0) {
+    } else if (strcmp((const char *) boardType[index], "BB") == 0) {
         adultBoardRate = guests[index][0] * 5;
         adultBoardCost = adultBoardRate * length[index];
         childBoardRate = guests[index][1] * 5;
