@@ -1,0 +1,3 @@
+N:/computer science/hotel project/school-hotel-project/CMakeFiles/school_work.dir
+N:/computer science/hotel project/school-hotel-project/CMakeFiles/edit_cache.dir
+N:/computer science/hotel project/school-hotel-project/CMakeFiles/rebuild_cache.dir

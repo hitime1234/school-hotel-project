@@ -106,7 +106,7 @@ void BookTable() {
     while (isalpha(*p)) ++p;
     int numbers = strtol(p, NULL, 10); //change to strtol to correctly report conversion errors.
 
-    if(numbers == 0){
+    if (numbers == 0) {
         printf("Invalid booking ID - must be in format surnameXXX\n");
         return;
     }
@@ -239,6 +239,25 @@ int roomInUseCheckByID(int numRoom, int id) {
     }
 }
 
+int RoomInUseCheckAll(int numRoom) {
+
+    int counter = 0;
+
+    while (map[counter][0] != -1) {  //iterate through all the booked rooms
+
+        for (int i = 0; i < 6; ++i) {
+            if (roomsUsed[counter][i] == numRoom) {
+                //the room is in use
+                return 1;
+            }
+        }
+        counter++;
+    }
+
+    return 0;
+
+}
+
 int IsLeapYear(int year) {
     return (((year % 4 == 0) &&
              (year % 100 != 0)) ||
@@ -285,7 +304,6 @@ void checkin() {
     int time = -1;
     int numberOfRooms = -1;
     int run = 1;
-    //generate_id();
     char *surinput;
     GenerateID();
     for (int i = 0; i < 7; i++) {
@@ -308,11 +326,10 @@ void checkin() {
     } while (numberOfRooms > 6 || numberOfRooms < 1);
     do {
         time = input_int("how many days are you here for?");
-        if (time > 30 || time < 1){
+        if (time > 30 || time < 1) {
             printf("\ntoo large or small time 1-30\n");
         }
-    }while(time > 30 || time < 1 );
-
+    } while (time > 30 || time < 1);
 
 
     printf("\n");
@@ -326,11 +343,11 @@ void checkin() {
             i--;
             continue;
         }
-        if (roomInUseCheckByIndex(whatRoom, partyIndex) == 0) {
+        if (RoomInUseCheckAll(whatRoom) == 1) {
             printf("invalid room in already in use\n");
             i--;
             continue;
-        } else if (roomInUseCheckByIndex(whatRoom, partyIndex) == 1) {
+        } else {
             roomsUsed[whatRoom][partyIndex] = 1;
         }
 
@@ -350,8 +367,7 @@ void checkin() {
 
         do { //validation loop for wake up call input
             wakeUpHolder = boolCheck("do you want a daily wake up call?");
-        }
-        while (wakeUpHolder == -1);
+        } while (wakeUpHolder == -1);
 
         dailyWakeUpCall[partyIndex] = wakeUpHolder;
     }
@@ -370,11 +386,12 @@ void checkin() {
         }
     } while (dateCheck == 0);
 
-    do{ //validation loop for taking in board type
+    do { //validation loop for taking in board type
         printf("\n\n");
         strcpy(boardType[partyIndex], input_char("Enter your board type, FB, HB or BB?\n"));
-    }
-    while( !( (boardType[partyIndex][0] == 'F' || boardType[partyIndex][0] == 'H' || boardType[partyIndex][0] == 'B') && boardType[partyIndex][1] == 'B') ); //not at all overcomplicated way to make sure it is FB, HB or BB
+    } while (!(
+            (boardType[partyIndex][0] == 'F' || boardType[partyIndex][0] == 'H' || boardType[partyIndex][0] == 'B') &&
+            boardType[partyIndex][1] == 'B')); //not at all overcomplicated way to make sure it is FB, HB or BB
 
 
     printf("your booking ID is:\n%s%d\n", surname[partyIndex], map[partyIndex][0]);
@@ -434,10 +451,9 @@ int Checkout(int bookingID) {
     float totalBoardCost = 0;
     float wakeUpCost = 0;
     float overallCost = 0;
-    float rooms[6];
 
     int index = returnIndex(bookingID);
-    
+
 
     int roomPrices[6][2] = {
             {1, 100},
@@ -522,7 +538,8 @@ int main() {
     while (run == 1) {
         //gets input and start switch case
         printf("\n");
-        switch (input_int("\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n?")) {
+        switch (input_int(
+                "\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n4.quit the program\n?")) {
             case 1:
                 //starts the checkin subroutine
                 checkin();
@@ -541,9 +558,6 @@ int main() {
                     while (isalpha(*p)) ++p;
                     int numbers = atoi(p);
 
-                   
-
-                    int check = returnIndex(numbers);
                     if (returnIndex(numbers) != -1) { //fetch the index for this booking ID
                         //if yes then passes into sub routine.
                         Checkout(numbers);
@@ -558,18 +572,14 @@ int main() {
                 break;
             case 4:
                 //this stops the program
-                run = 0;
-                break;
+                return 0;
             case 5:
                 printf("\nmade by following\nprogrammers:\ncharles\nphilip\nmatthew\nRandom bug tester:\njackus: 'there is always bugs!' like this one\n");
+                break;
             default:
                 //input wasn't any of the cases
                 printf("\nINPUT error.\n");
                 break;
-
-
         }
     }
-    fflush(stdout);
-    return 0;
 }
