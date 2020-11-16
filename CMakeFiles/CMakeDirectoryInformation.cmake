@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "N:/computer science/hotel project/school-hotel-project")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "N:/computer science/hotel project/school-hotel-project/cmake-build-debug")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "N:/computer science/hotel project/school-hotel-project")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)
