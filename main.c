@@ -79,7 +79,8 @@ char *input_char(char *text) {
     char *string = malloc(25);
     printf("%s", text);
     fgets(string, 25, stdin);
-
+    fflush(stdin);
+    fflush(stdout);
     if (string[strlen(string) - 1] == '\n') {
         string[strlen(string) - 1] = '\0';
     }
