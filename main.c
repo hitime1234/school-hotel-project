@@ -125,12 +125,13 @@ void BookTable() {
         printf("Tables can only seat 4\n");
         return;
     }
-
+    int checkAmount =0 ;
     for (int setting = 0; setting < 2; ++setting) { //iterate through the two settings
         for (int i = 0; i < 3; ++i) { //iterate through the three tables
             if (tables[setting][i] == 0) { //if this table is available
                 printf("Table %s is available at %d\n", names[i],
                        (setting * 2) + 7); //maths is to correctly convert from 0/1 to 7/9
+                checkAmount = checkAmount + 1;
             }
         }
         printf("\n");
@@ -140,59 +141,62 @@ void BookTable() {
     char table[64];
 
     int flag = 0;
+    if (checkAmount == 0){
+        printf("there are no tables at the moment");
+    }
+    else {
+        do { //validation - will loop until a table is successfully booked
 
-    do { //validation - will loop until a table is successfully booked
+            timeIn = input_int("What time do you want to book a table, 7 or 9?\n");
 
-        timeIn = input_int("What time do you want to book a table, 7 or 9?\n");
+            if (timeIn != 7 && timeIn != 9) { //invalid id
+                printf("Invalid time, try again\n");
+                continue;
+            }
 
-        if (timeIn != 7 && timeIn != 9) { //invalid id
-            printf("Invalid time, try again\n");
-            continue;
-        }
+            timeIn = timeIn / 9; //int division trick to get the times to 0 or 1:
+            // 7/9 < 1 so it gets round down to 0, 9/9 = 1 so it stays as 1
 
-        timeIn = timeIn / 9; //int division trick to get the times to 0 or 1:
-        // 7/9 < 1 so it gets round down to 0, 9/9 = 1 so it stays as 1
+            strcpy(table, input_char("What table would you like to book?\n"));
 
-        strcpy(table, input_char("What table would you like to book?\n"));
+            switch (tolower(
+                    table[0])) {  //since we can't switch on a string, we use the 0th char as it is different for each table.
 
-        switch (tolower(
-                table[0])) {  //since we can't switch on a string, we use the 0th char as it is different for each table.
+                case 'e':
+                    if (tables[timeIn][0] == 1) {
+                        printf("This table is already booked\n");
+                    } else {
+                        tables[timeIn][0] = 1;
+                        flag = 1;
+                    }
+                    break;
+                    //fixed the lowercase case input thing you only had one working - matthew
+                case 'n':
+                    if (tables[timeIn][1] == 1) {
+                        printf("This table is already booked\n");
+                    } else {
+                        tables[timeIn][1] = 1;
+                        flag = 1;
+                    }
+                    break;
 
-            case 'e':
-                if (tables[timeIn][0] == 1) {
-                    printf("This table is already booked\n");
-                } else {
-                    tables[timeIn][0] = 1;
-                    flag = 1;
-                }
-                break;
-                //fixed the lowercase case input thing you only had one working - matthew
-            case 'n':
-                if (tables[timeIn][1] == 1) {
-                    printf("This table is already booked\n");
-                } else {
-                    tables[timeIn][1] = 1;
-                    flag = 1;
-                }
-                break;
+                    //fixed the lowercase case input thing you only had one working - matthew
+                case 't':
+                    if (tables[timeIn][2] == 1) {
+                        printf("This table is already booked\n");
+                    } else {
+                        tables[timeIn][2] = 1;
+                        flag = 1;
+                    }
+                    break;
 
-                //fixed the lowercase case input thing you only had one working - matthew
-            case 't':
-                if (tables[timeIn][2] == 1) {
-                    printf("This table is already booked\n");
-                } else {
-                    tables[timeIn][2] = 1;
-                    flag = 1;
-                }
-                break;
+                default:
+                    printf("That table doesn't exist\n");
+                    break;
+            }
 
-            default:
-                printf("That table doesn't exist\n");
-                break;
-        }
-
-    } while (flag == 0);
-
+        } while (flag == 0);
+    }
 }
 
 int boolCheck(char *string) {
@@ -298,104 +302,117 @@ int IsValidDate() {
 
 
 void checkin() {
-    fflush(stdout);
-    int numbers = -1;
-    int numbers_child = -1;
-    int time = -1;
-    int numberOfRooms = -1;
-    int run = 1;
-    char *surinput;
-    GenerateID();
-    for (int i = 0; i < 7; i++) {
-        roomsUsed[partyIndex][i] = 0;
+    if (RoomInUseCheckAll(1) == 1 &&
+        RoomInUseCheckAll(2) == 1 &&
+        RoomInUseCheckAll(3) == 1 &&
+        RoomInUseCheckAll(4) == 1 &&
+        RoomInUseCheckAll(5) == 1 &&
+        RoomInUseCheckAll(6) == 1
+        )
+    {
+        printf("\nall rooms taken. Ending checkin.\n");
     }
-    //gets surname input
-    do {
-        surinput = input_char("what is your surname?");
-    } while (digits_only(surinput) == 1);
-    int len = strlen(surinput);
-    if (surinput[len - 1] == '\n')
-        surinput[len - 1] = '\0';
-    //copies to surname
-    strcpy(surname[partyIndex], surinput);
-    //gets number of rooms
-    do {
-        printf("\nHow many rooms would you like to book? 1-6.");
-        numberOfRooms = input_int("\n");
-
-    } while (numberOfRooms > 6 || numberOfRooms < 1);
-    do {
-        time = input_int("how many days are you here for?");
-        if (time > 30 || time < 1) {
-            printf("\ntoo large or small time 1-30\n");
+    else {
+        fflush(stdout);
+        int numbers = -1;
+        int numbers_child = -1;
+        int time = -1;
+        int numberOfRooms = -1;
+        int run = 1;
+        char *surinput;
+        GenerateID();
+        for (int i = 0; i < 7; i++) {
+            roomsUsed[partyIndex][i] = 0;
         }
-    } while (time > 30 || time < 1);
-
-
-    printf("\n");
-    int hold_int = numberOfRooms;
-    for (int i = 0; i < hold_int; i++) {
-        //checks for if the number lies between 1 & 6
-        int whatRoom = input_int(
-                "what room would you like prices are:\nRoom 1 & 2 = 100,\nRoom 3 = 85,\nRoom 4 & 5 = 75,\nRoom 6 = 50,\n?");
-        if (whatRoom > 6 || whatRoom < 1) {
-            printf("error\n");
-            i--;
-            continue;
-        }
-        if (RoomInUseCheckAll(whatRoom) == 1) {
-            printf("invalid room in already in use\n");
-            i--;
-            continue;
-        } else {
-            roomsUsed[whatRoom][partyIndex] = 1;
-        }
-
+        //gets surname input
         do {
-            //gets inputs for number of people and length of stay.
-            numbers = input_int("how many adults are with you?");
-            numbers_child = input_int("how many children are with you?");
-        } while (time > 30 || time < 1 || numbers_child > 5 || numbers > 5 || numbers_child < 0 || numbers < 1);
+            surinput = input_char("what is your surname?");
+        } while (digits_only(surinput) == 1);
+        int len = strlen(surinput);
+        if (surinput[len - 1] == '\n')
+            surinput[len - 1] = '\0';
+        //copies to surname
+        strcpy(surname[partyIndex], surinput);
+        //gets number of rooms
+        do {
+            printf("\nHow many rooms would you like to book? 1-6.");
+            numberOfRooms = input_int("\n");
 
-        length[partyIndex] = time;
-        guests[partyIndex][0] = guests[partyIndex][0] + numbers;
-        guests[partyIndex][1] = guests[partyIndex][1] + numbers_child;
-        roomsUsed[partyIndex][i] = whatRoom;
+        } while (numberOfRooms > 6 || numberOfRooms < 1);
+        do {
+            time = input_int("how many days are you here for?");
+            if (time > 30 || time < 1) {
+                printf("\ntoo large or small time 1-30\n");
+            }
+        } while (time > 30 || time < 1);
+
+
         printf("\n");
+        int hold_int = numberOfRooms;
+        for (int i = 0; i < hold_int; i++) {
+            //checks for if the number lies between 1 & 6
+            int whatRoom = input_int(
+                    "what room would you like prices are:\nRoom 1 & 2 = 100,\nRoom 3 = 85,\nRoom 4 & 5 = 75,\nRoom 6 = 50,\n?");
+            if (whatRoom > 6 || whatRoom < 1) {
+                printf("error\n");
+                i--;
+                continue;
+            }
+            if (RoomInUseCheckAll(whatRoom) == 1) {
+                printf("invalid room in already in use\n");
+                i--;
+                continue;
+            } else {
+                roomsUsed[whatRoom][partyIndex] = 1;
+            }
 
-        int wakeUpHolder = 0;
+            do {
+                //gets inputs for number of people and length of stay.
+                numbers = input_int("how many adults are with you?");
+                numbers_child = input_int("how many children are with you?");
+            } while (time > 30 || time < 1 || numbers_child > 5 || numbers > 5 || numbers_child < 0 || numbers < 1);
 
-        do { //validation loop for wake up call input
-            wakeUpHolder = boolCheck("do you want a daily wake up call?");
-        } while (wakeUpHolder == -1);
+            length[partyIndex] = time;
+            guests[partyIndex][0] = guests[partyIndex][0] + numbers;
+            guests[partyIndex][1] = guests[partyIndex][1] + numbers_child;
+            roomsUsed[partyIndex][i] = whatRoom;
+            printf("\n");
 
-        dailyWakeUpCall[partyIndex] = wakeUpHolder;
-    }
+            int wakeUpHolder = 0;
 
+            do { //validation loop for wake up call input
+                wakeUpHolder = boolCheck("do you want a daily wake up call?");
+            } while (wakeUpHolder == -1);
 
-    int dateCheck = 0;
-    do {
-        printf("\n\n");
-        //gets date of birth
-        dateOfBirth[partyIndex][0] = input_int("what is your date of birth DD?");
-        dateOfBirth[partyIndex][1] = input_int("what is your date of birth MM?");
-        dateOfBirth[partyIndex][2] = input_int("what is your date of birth YYYY?");
-        dateCheck = IsValidDate();
-        if (dateCheck == 0) {
-            printf("\ninvalid date must be at least 16 years old.");
+            dailyWakeUpCall[partyIndex] = wakeUpHolder;
         }
-    } while (dateCheck == 0);
-
-    do { //validation loop for taking in board type
-        printf("\n\n");
-        strcpy(boardType[partyIndex], input_char("Enter your board type, FB, HB or BB?\n"));
-    } while (!(
-            (boardType[partyIndex][0] == 'F' || boardType[partyIndex][0] == 'H' || boardType[partyIndex][0] == 'B') &&
-            boardType[partyIndex][1] == 'B')); //not at all overcomplicated way to make sure it is FB, HB or BB
 
 
-    printf("your booking ID is:\n%s%d\n", surname[partyIndex], map[partyIndex][0]);
-    fflush(stdout);
+        int dateCheck = 0;
+        do {
+            printf("\n\n");
+            //gets date of birth
+            dateOfBirth[partyIndex][0] = input_int("what is your date of birth DD?");
+            dateOfBirth[partyIndex][1] = input_int("what is your date of birth MM?");
+            dateOfBirth[partyIndex][2] = input_int("what is your date of birth YYYY?");
+            dateCheck = IsValidDate();
+            if (dateCheck == 0) {
+                printf("\ninvalid date must be at least 16 years old.");
+            }
+        } while (dateCheck == 0);
+
+        do { //validation loop for taking in board type
+            printf("\n\n");
+            strcpy(boardType[partyIndex], input_char("Enter your board type, FB, HB or BB?\n"));
+        } while (!(
+                (boardType[partyIndex][0] == 'F' || boardType[partyIndex][0] == 'H' ||
+                 boardType[partyIndex][0] == 'B') &&
+                boardType[partyIndex][1] == 'B')); //not at all overcomplicated way to make sure it is FB, HB or BB
+
+
+        printf("your booking ID is:\n%s%d\n", surname[partyIndex], map[partyIndex][0]);
+        fflush(stdout);
+    }
 }
 
 int AgeDifference(const int date1[3], const int date2[3]) {
@@ -539,7 +556,7 @@ int main() {
         //gets input and start switch case
         printf("\n");
         switch (input_int(
-                "\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n4.quit the program?")) {
+                "\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n4.quit the program\n?")) {
             case 1:
                 //starts the checkin subroutine
                 checkin();

@@ -1,2 +1,4 @@
-Cannot generate 'Debug' into N:\computer science\hotel project\school-hotel-project\cmake-build-debug
-Only in-source generation will be performed.
+"C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" "N:\computer science\hotel project\1.9.9"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: N:/computer science/hotel project/1.9.9/cmake-build-debug
