@@ -6,8 +6,8 @@
 
 //GLOBAL DATA
 
-int map[10][2] = {{-1, -1},
-                  {-1, -1},
+int map[10][2] = {{-1, -1}, //i don't think these -1s are strictly necessary BUT they are now used for the check rooms
+                  {-1, -1}, //used subroutine so they must stay this way.
                   {-1, -1},
                   {-1, -1},
                   {-1, -1},
@@ -539,7 +539,7 @@ int main() {
         //gets input and start switch case
         printf("\n");
         switch (input_int(
-                "\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n4.quit the program\n?")) {
+                "\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n4.quit the program?")) {
             case 1:
                 //starts the checkin subroutine
                 checkin();
