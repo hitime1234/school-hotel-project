@@ -126,7 +126,7 @@ void BookTable() {
         printf("Tables can only seat 4\n");
         return;
     }
-    int checkAmount =0 ;
+    int checkAmount = 0;
     for (int setting = 0; setting < 2; ++setting) { //iterate through the two settings
         for (int i = 0; i < 3; ++i) { //iterate through the three tables
             if (tables[setting][i] == 0) { //if this table is available
@@ -142,10 +142,9 @@ void BookTable() {
     char table[64];
 
     int flag = 0;
-    if (checkAmount == 0){
+    if (checkAmount == 0) {
         printf("there are no tables at the moment");
-    }
-    else {
+    } else {
         do { //validation - will loop until a table is successfully booked
 
             timeIn = input_int("What time do you want to book a table, 7 or 9?\n");
@@ -309,11 +308,9 @@ void checkin() {
         RoomInUseCheckAll(4) == 1 &&
         RoomInUseCheckAll(5) == 1 &&
         RoomInUseCheckAll(6) == 1
-        )
-    {
+            ) {
         printf("\nall rooms taken. Ending checkin.\n");
-    }
-    else {
+    } else {
         fflush(stdout);
         int numbers = -1;
         int numbers_child = -1;
@@ -406,9 +403,10 @@ void checkin() {
             printf("\n\n");
             strcpy(boardType[partyIndex], input_char("Enter your board type, FB, HB or BB?\n"));
         } while (!(
-                (boardType[partyIndex][0] == 'F' || boardType[partyIndex][0] == 'H' ||
-                 boardType[partyIndex][0] == 'B') &&
-                boardType[partyIndex][1] == 'B')); //not at all overcomplicated way to make sure it is FB, HB or BB
+                (tolower(boardType[partyIndex][0]) == 'f' || tolower(boardType[partyIndex][0]) == 'h' ||
+                 tolower(boardType[partyIndex][0]) == 'b') &&
+                tolower(boardType[partyIndex][1] ==
+                        'b'))); //not at all overcomplicated way to make sure it is FB, HB or BB, capitals no ignored.
 
 
         printf("your booking ID is:\n%s%d\n", surname[partyIndex], map[partyIndex][0]);
