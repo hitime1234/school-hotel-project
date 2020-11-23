@@ -67,10 +67,10 @@ RM = "C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "N:\computer science\hotel project\1.9.9"
+CMAKE_SOURCE_DIR = "N:\computer science\hotel project\final\version1"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "N:\computer science\hotel project\1.9.9\cmake-build-debug"
+CMAKE_BINARY_DIR = "N:\computer science\hotel project\final\version1\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "N:\computer science\hotel project\1.9.9\cmake-build-debug\CMakeFiles" "N:\computer science\hotel project\1.9.9\cmake-build-debug\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "N:\computer science\hotel project\final\version1\cmake-build-debug\CMakeFiles" "N:\computer science\hotel project\final\version1\cmake-build-debug\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "N:\computer science\hotel project\1.9.9\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "N:\computer science\hotel project\final\version1\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -130,17 +130,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named 1_9_9
+# Target rules for targets named version1
 
 # Build rule for target.
-1_9_9: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 1_9_9
-.PHONY : 1_9_9
+version1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 version1
+.PHONY : version1
 
 # fast build rule for target.
-1_9_9/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/build
-.PHONY : 1_9_9/fast
+version1/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/build
+.PHONY : version1/fast
 
 main.obj: main.c.obj
 
@@ -148,7 +148,7 @@ main.obj: main.c.obj
 
 # target to build an object file
 main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/main.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/main.c.obj
 .PHONY : main.c.obj
 
 main.i: main.c.i
@@ -157,7 +157,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -166,7 +166,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/main.c.s
 .PHONY : main.c.s
 
 # Help Target
@@ -177,7 +177,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... 1_9_9
+	@echo ... version1
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
