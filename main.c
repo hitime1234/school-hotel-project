@@ -198,6 +198,7 @@ void BookTable() {
 
         } while (flag == 0);
     }
+    printf("Table booked.\n");
 }
 
 int boolCheck(char *string) {
