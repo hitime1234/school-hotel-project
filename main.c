@@ -41,7 +41,7 @@ int digits_only(const char *s) {
 
 
 int returnIndex(int reference) { //returns index from the map
-    for (int i = 0; i < 18; i++) {
+    for (int i = 0; i < 10; i++) {
         if (map[i][0] == reference) {
             return map[i][1];
         }
@@ -95,7 +95,6 @@ void BookTable() {
 
     char names[3][32] = {"Endor", "Naboo", "Tatooine"};
 
-    int run = 0;
     char bookingId[256] = {};
     strcpy(bookingId, input_char("Enter your booking ID?"));
 
@@ -443,7 +442,7 @@ int AgeDifference(const int date1[3], const int date2[3]) {
     return year_diff;
 }
 
-int Checkout(int bookingID) {
+void Checkout(int bookingID) {
 
     // Initialising all the variables
     float lengthCost = 0;
@@ -534,6 +533,9 @@ int Checkout(int bookingID) {
 
 
 int main() {
+
+    setbuf(stdout, NULL);
+
     //gets tests
     char reference[8];
     char idChecked[26] = {"test"};
@@ -575,7 +577,7 @@ int main() {
                 break;
             case 4:
                 //this stops the program
-                return 0;
+                run = 0;
             case 5:
                 printf("\nmade by following\nprogrammers:\ncharles\nphilip\nmatthew\nRandom bug tester:\njackus: 'there is always bugs!' like this one\n");
                 break;
@@ -585,4 +587,5 @@ int main() {
                 break;
         }
     }
+    return 0;
 }
