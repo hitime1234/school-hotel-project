@@ -85,6 +85,8 @@ char *input_char(char *text) {
         string[strlen(string) - 1] = '\0';
     }
 
+    fflush(stdin);
+
     return string;
 }
 
@@ -227,21 +229,6 @@ void GenerateID() {
     map[partyIndex][1] = partyIndex; //set the second int to the index - this will be used for further lookup
 }
 
-int roomInUseCheckByIndex(int numRoom, int index) {
-    if (roomsUsed[index][numRoom] != 1) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-int roomInUseCheckByID(int numRoom, int id) {
-    if (roomsUsed[returnIndex(id)][numRoom] != 1) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
 
 int RoomInUseCheckAll(int numRoom) {
 

@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/chasj/CLionProjects/school-hotel-project-final-main
+# Install script for directory: N:/testRepo/school-hotel-project/school-hotel-project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/1_9_9")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/version1")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/chasj/CLionProjects/school-hotel-project-final-main/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "N:/testRepo/school-hotel-project/school-hotel-project/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

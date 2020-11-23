@@ -54,25 +54,25 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\Program Files\CLION\CLion 2020.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\Program Files\CLION\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\chasj\CLionProjects\school-hotel-project-final-main
+CMAKE_SOURCE_DIR = N:\testRepo\school-hotel-project\school-hotel-project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\chasj\CLionProjects\school-hotel-project-final-main
+CMAKE_BINARY_DIR = N:\testRepo\school-hotel-project\school-hotel-project
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/1_9_9.dir/all
+all: CMakeFiles/version1.dir/all
 
 .PHONY : all
 
@@ -82,36 +82,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/1_9_9.dir/clean
+clean: CMakeFiles/version1.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/1_9_9.dir
+# Target rules for target CMakeFiles/version1.dir
 
 # All Build rule for target.
-CMakeFiles/1_9_9.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\chasj\CLionProjects\school-hotel-project-final-main\CMakeFiles --progress-num=1,2 "Built target 1_9_9"
-.PHONY : CMakeFiles/1_9_9.dir/all
+CMakeFiles/version1.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=N:\testRepo\school-hotel-project\school-hotel-project\CMakeFiles --progress-num=1,2 "Built target version1"
+.PHONY : CMakeFiles/version1.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/1_9_9.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\chasj\CLionProjects\school-hotel-project-final-main\CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/1_9_9.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\chasj\CLionProjects\school-hotel-project-final-main\CMakeFiles 0
-.PHONY : CMakeFiles/1_9_9.dir/rule
+CMakeFiles/version1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start N:\testRepo\school-hotel-project\school-hotel-project\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/version1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start N:\testRepo\school-hotel-project\school-hotel-project\CMakeFiles 0
+.PHONY : CMakeFiles/version1.dir/rule
 
 # Convenience name for target.
-1_9_9: CMakeFiles/1_9_9.dir/rule
+version1: CMakeFiles/version1.dir/rule
 
-.PHONY : 1_9_9
+.PHONY : version1
 
 # clean rule for target.
-CMakeFiles/1_9_9.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/clean
-.PHONY : CMakeFiles/1_9_9.dir/clean
+CMakeFiles/version1.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/clean
+.PHONY : CMakeFiles/version1.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -58,19 +58,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "D:\Program Files\CLION\CLion 2020.2\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "D:\Program Files\CLION\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f
+RM = "C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\chasj\CLionProjects\school-hotel-project-final-main
+CMAKE_SOURCE_DIR = N:\testRepo\school-hotel-project\school-hotel-project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\chasj\CLionProjects\school-hotel-project-final-main
+CMAKE_BINARY_DIR = N:\testRepo\school-hotel-project\school-hotel-project
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,7 +78,7 @@ CMAKE_BINARY_DIR = C:\Users\chasj\CLionProjects\school-hotel-project-final-main
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	"D:\Program Files\CLION\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
+	"C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available."
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -89,7 +89,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"D:\Program Files\CLION\CLion 2020.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -99,9 +99,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\chasj\CLionProjects\school-hotel-project-final-main\CMakeFiles C:\Users\chasj\CLionProjects\school-hotel-project-final-main\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start N:\testRepo\school-hotel-project\school-hotel-project\CMakeFiles N:\testRepo\school-hotel-project\school-hotel-project\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\chasj\CLionProjects\school-hotel-project-final-main\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start N:\testRepo\school-hotel-project\school-hotel-project\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -130,17 +130,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named 1_9_9
+# Target rules for targets named version1
 
 # Build rule for target.
-1_9_9: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 1_9_9
-.PHONY : 1_9_9
+version1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 version1
+.PHONY : version1
 
 # fast build rule for target.
-1_9_9/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/build
-.PHONY : 1_9_9/fast
+version1/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/build
+.PHONY : version1/fast
 
 main.obj: main.c.obj
 
@@ -148,7 +148,7 @@ main.obj: main.c.obj
 
 # target to build an object file
 main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/main.c.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/main.c.obj
 .PHONY : main.c.obj
 
 main.i: main.c.i
@@ -157,7 +157,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -166,7 +166,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\1_9_9.dir\build.make CMakeFiles/1_9_9.dir/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\version1.dir\build.make CMakeFiles/version1.dir/main.c.s
 .PHONY : main.c.s
 
 # Help Target
@@ -177,7 +177,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... 1_9_9
+	@echo ... version1
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
