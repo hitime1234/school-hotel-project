@@ -41,8 +41,9 @@ int digits_only(const char *s) {
 
 
 int returnIndex(int reference) { //returns index from the map
-    for (int i = 0; i < 18; i++) {
+    for (int i = 0; i < 10; i++) {
         if (map[i][0] == reference) {
+            printf("\n%d\n",i);
             return map[i][1];
         }
     }
@@ -547,6 +548,7 @@ int Checkout(int bookingID) {
 
 
 int main() {
+    setbuf(stdout, NULL);
     //gets tests
     char reference[8];
     char idChecked[26] = {"test"};
