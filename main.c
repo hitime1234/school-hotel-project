@@ -526,9 +526,7 @@ void Checkout(int bookingID) {
 
     overallCost = lengthCost + totalBoardCost + wakeUpCost;
     printf("\n\nOverall cost for the stay is: GBP%.2f", overallCost);
-
-    for (int i = 0; i < 6; i++) {
-        roomsUsed[index][i] = 0;
+//you made do sneak?>
     }
 }
 
