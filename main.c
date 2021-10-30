@@ -6,7 +6,16 @@
 
 //GLOBAL DATA
 
-int map[10][2] = {{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}}; //map of booking IDs to indices .. -- matthew: i had to pre-fill due to return index find matches from old memory. -1 should never be used in code as this stands for error
+int map[10][2] = {{-1, -1},
+                  {-1, -1},
+                  {-1, -1},
+                  {-1, -1},
+                  {-1, -1},
+                  {-1, -1},
+                  {-1, -1},
+                  {-1, -1},
+                  {-1, -1},
+                  {-1, -1}}; //map of booking IDs to indices .. -- matthew: i had to pre-fill due to return index find matches from old memory. -1 should never be used in code as this stands for error
 int tables[2][3] = {};    //boolean list of tables
 int partyIndex = -1;       //tells checkIn what index to insert at
 
@@ -84,25 +93,13 @@ void BookTable() {
     char names[3][32] = {"Endor", "Naboo", "Tatooine"};
 
     int run = 0;
-    char bookingId[256] = {"test"};
-    do{
-    //matthew's fixes
+    char bookingId[256] = {};
     strcpy(bookingId, input_char("Enter your booking ID?"));
-    if (digits_only(bookingId) == 1)
-        {
-            printf("\nyour bookingID is valid\n");
-            run = 1;
-        }
-    else
-        {
-            printf("\nerror your bookingID isn't valid\n");
-            run = 0;
-        }
-    }while (run == 0);
+
     // how do i put this this solution did not work at all probably because clion handles this type clever stuff different.
     //old solution:
     //int numbers = sscanf("%d",
-      //                   bookingId + strlen(bookingId) - 4); //use pointer arithmetic to get the last three letters
+    //                   bookingId + strlen(bookingId) - 4); //use pointer arithmetic to get the last three letters
     // of the string, use sscanf to convert last three digits to integer
     //new solution this saved me so many headaches
     char *p = bookingId;
@@ -163,7 +160,7 @@ void BookTable() {
                     flag = 1;
                 }
                 break;
-            //fixed the lowercase case input thing you only had one working - matthew
+                //fixed the lowercase case input thing you only had one working - matthew
             case 'n':
                 if (tables[timeIn][1] == 1) {
                     printf("This table is already booked\n");
@@ -212,14 +209,22 @@ int boolCheck(char *string) {
 }
 
 void GenerateID() {
-    partyIndex= partyIndex + 1; //as the check in code also uses this value it MUST only be incremented when both bits of code have been run
     srand(time(0));
+    partyIndex++;
     int id = (rand() % (999 - 100 + 1)) + 100; //inclusive
     map[partyIndex][0] = id;
     map[partyIndex][1] = partyIndex; //set the second int to the index - this will be used for further lookup
 }
 
-int roomInUseChecker(numRoom, id) {
+int roomInUseCheckByIndex(int numRoom, int index) {
+    if (roomsUsed[index][numRoom] != 1) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int roomInUseCheckByID(int numRoom, int id) {
     if (roomsUsed[returnIndex(id)][numRoom] != 1) {
         return 1;
     } else {
@@ -267,6 +272,7 @@ int IsValidDate() {
 
 
 void checkin() {
+    fflush(stdout);
     int numbers = -1;
     int numbers_child = -1;
     int time = -1;
@@ -283,15 +289,22 @@ void checkin() {
         surinput = input_char("what is your surname?");
     } while (digits_only(surinput) == 1);
     int len = strlen(surinput);
-    if (surinput[len] == '\n')
-        surinput[len] = 0;
+    if (surinput[len - 1] == '\n')
+        surinput[len - 1] = '\0';
     //copies to surname
     strcpy(surname[partyIndex], surinput);
     //gets number of rooms
     do {
-        printf("\nmust be between 1 & 6\n");
-        numberOfRooms = input_int("how many rooms would you like to get?");
+        printf("\nHow many rooms would you like to book? 1-6.");
+        numberOfRooms = input_int("\n");
+
     } while (numberOfRooms >= 61 || numberOfRooms < 1);
+    do {
+        time = input_int("how many days are you here for?");
+        if (time > 30 || time < 1){
+            printf("\ntoo large or small time 1-30\n");
+        }
+    }while(time > 30 || time < 1 );
     printf("\n");
     int hold_int = numberOfRooms;
     for (int i = 0; i < hold_int; i++) {
@@ -301,20 +314,23 @@ void checkin() {
         if (whatRoom > 6 || whatRoom < 1) {
             printf("error\n");
             i--;
+            continue;
         }
-        if (roomInUseChecker(whatRoom) == 0) {
+        if (roomInUseCheckByIndex(whatRoom, partyIndex) == 0) {
             printf("invalid room in already in use\n");
             i--;
-        } else if (roomInUseChecker(whatRoom, partyIndex) == 1) {
+            continue;
+        } else if (roomInUseCheckByIndex(whatRoom, partyIndex) == 1) {
             roomsUsed[whatRoom][partyIndex] = 1;
         }
+
         do {
             //gets inputs for number of people and length of stay.
             numbers = input_int("how many adults are with you?");
             numbers_child = input_int("how many children are with you?");
-            time = input_int("how many days are you here for?");
         } while (time > 30 || time < 1 || numbers_child > 5 || numbers > 5 || numbers_child < 0 || numbers < 1);
-        length[whatRoom - 1] = time;
+
+        length[partyIndex] = time;
         guests[partyIndex][0] = guests[partyIndex][0] + numbers;
         guests[partyIndex][1] = guests[partyIndex][1] + numbers_child;
         roomsUsed[partyIndex][i] = whatRoom;
@@ -333,56 +349,56 @@ void checkin() {
             printf("\ninvalid date must be at least 16 years old.");
         }
     } while (dateCheck == 0);
+
+    do{ //validation loop for taking in board type
+        printf("\n\n");
+        strcpy(boardType[partyIndex], input_char("Enter your board type, FB, HB or BB?\n"));
+    }
+    while( !( (boardType[partyIndex][0] == 'F' || boardType[partyIndex][0] == 'H' || boardType[partyIndex][0] == 'B') && boardType[partyIndex][1] == 'B') ); //not at all overcomplicated way to make sure it is FB, HB or BB
+
+
     printf("your booking ID is:\n%s%d\n", surname[partyIndex], map[partyIndex][0]);
+    fflush(stdout);
 }
 
-int AgeDifference(const int date1[3], const int date2[3]){
+int AgeDifference(const int date1[3], const int date2[3]) {
     int day1 = date1[0], mon1 = date1[1], year1 = date1[2];
     int day2 = date2[0], mon2 = date2[1], year2 = date2[2];
 
     int day_diff, mon_diff, year_diff;
 
-    if(day2 < day1)
-    {
-         //borrow days from february
-        if (mon2 == 3)
-        {
-              //check whether year is a leap year
-            if ((year2 % 4 == 0 && year2 % 100 != 0) || (year2 % 400 == 0))
-            {
-              day2 += 29;
-            }
-
-            else
-            {
-               day2 += 28;
+    if (day2 < day1) {
+        //borrow days from february
+        if (mon2 == 3) {
+            //check whether year is a leap year
+            if ((year2 % 4 == 0 && year2 % 100 != 0) || (year2 % 400 == 0)) {
+                day2 += 29;
+            } else {
+                day2 += 28;
             }
         }
 
-             //borrow days from April or June or September or November
-        else if (mon2 == 5 || mon2 == 7 || mon2 == 10 || mon2 == 12)
-        {
+            //borrow days from April or June or September or November
+        else if (mon2 == 5 || mon2 == 7 || mon2 == 10 || mon2 == 12) {
             day2 += 30;
         }
 
-             //borrow days from Jan or Mar or May or July or Aug or Oct or Dec
-            else
-        {
+            //borrow days from Jan or Mar or May or July or Aug or Oct or Dec
+        else {
             day2 += 31;
         }
 
-         mon2 = mon2 - 1;
+        mon2 = mon2 - 1;
     }
 
-    if (mon2 < mon1)
-    {
-       mon2 += 12;
-     year2 -= 1;
+    if (mon2 < mon1) {
+        mon2 += 12;
+        year2 -= 1;
     }
 
     day_diff = day2 - day1;
     mon_diff = mon2 - mon1;
-    year_diff =  year2 - year1;
+    year_diff = year2 - year1;
     printf("you are %d years old", year_diff);
     return year_diff;
 }
@@ -402,12 +418,6 @@ int Checkout(int bookingID) {
 
     int index = returnIndex(bookingID);
 
-    for (int i = 0; i < 6; i++) {
-        if (roomsUsed[index][i] == 1) {
-            rooms[i] = i + 1;
-        }
-    }
-
     int roomPrices[6][2] = {
             {1, 100},
             {2, 100},
@@ -425,13 +435,13 @@ int Checkout(int bookingID) {
         for (int j = 0; j < 6; j++) {
 
             // When the values are equal it will multiply the cost by the amount of days stayed to get the room price
-            if (rooms[i] == roomPrices[j][0]) {
+            if (roomsUsed[index][i] == roomPrices[j][0]) {
                 lengthCost = lengthCost + (roomPrices[j][1] * length[index]);
             }
         }
     }
-    int current_time[3] = {14,11,2020};
-    if (AgeDifference(dateOfBirth[index],current_time)> 65) {  //TODO sort out age
+    int current_time[3] = {14, 11, 2020};
+    if (AgeDifference(dateOfBirth[index], current_time) > 65) {
         lengthCost = lengthCost * 0.9;
     }
 
@@ -478,7 +488,7 @@ int Checkout(int bookingID) {
     printf("\n\nOverall cost for the stay is: GBP%.2f", overallCost);
 
     for (int i = 0; i < 6; i++) {
-        rooms[i] = 0;
+        roomsUsed[index][i] = 0;
     }
 }
 
@@ -488,9 +498,10 @@ int main() {
     char reference[8];
     char idChecked[26] = {"test"};
     int run = 1;
-    while (run == 1){
+    while (run == 1) {
         //gets input and start switch case
-        switch(input_int("\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n?")) {
+        printf("\n");
+        switch (input_int("\nwhat would you like to do?\n1.check in\n2.book a table\n3.check out\n?")) {
             case 1:
                 //starts the checkin subroutine
                 checkin();
@@ -501,7 +512,7 @@ int main() {
                 break;
             case 3:
                 //checks if contains numbers
-                strcpy(idChecked,input_char("\nwhat is your bookingID?"));
+                strcpy(idChecked, input_char("\nwhat is your bookingID?"));
                 if (digits_only(idChecked) == 1) {
                     //all hall stackoverflow for this fix. It took some time
                     //gets numbers from string
@@ -512,15 +523,11 @@ int main() {
                     if (returnIndex(numbers) != -1) { //fetch the index for this booking ID
                         //if yes then passes into sub routine.
                         Checkout(numbers);
-                    }
-
-                    else{
+                    } else {
                         //if no then returns a error
                         printf("\nerror invalid bookingID\n");
                     }
-                }
-                else
-                {
+                } else {
                     //if no then the case and switch goes to start and return not valid
                     printf("\nnot valid\n");
                 }
@@ -537,5 +544,6 @@ int main() {
 
         }
     }
+    fflush(stdout);
     return 0;
 }
